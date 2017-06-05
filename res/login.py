@@ -52,7 +52,8 @@ class RegisterRes(Resource):
 
         found_user = Customer.objects(username = username).first()
         if found_user is not None:
-            return {"code":0,"Measage":"User Already Exists","token":""},400
+            print("User already exist")
+            return redirect('api/login',307)
 
         user = Customer(username = username, password = password,token = model.user_token.generate())
 

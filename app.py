@@ -26,6 +26,8 @@ api.add_resource(CommentRes,"/api/rage/comment/<id>")
 api.add_resource(CommentIDRes,"/api/rage/comment/<id1>/<id2>")
 #get customer
 api.add_resource(ACustomer,"/api/register/<id>")
+#get customer order
+api.add_resource(OrderCustomer,"/api/register/order/<id>")
 #delete customer
 api.add_resource(RegisterRes,"/api/register")
 #get list rage customer like

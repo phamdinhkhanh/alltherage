@@ -56,7 +56,6 @@ class RegisterRes(Resource):
             return redirect('api/login',307)
 
         user = Customer(username = username, password = password,token = model.user_token.generate())
-
         print({"name": user.username+";password:"+user.password})
         user.save()
 

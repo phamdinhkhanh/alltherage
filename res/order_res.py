@@ -159,6 +159,13 @@ class OrderTotalSpend(Resource):
         order.delete()
         return {"message":"OK"},200
 
+class OrderCustomer(Resource):
+    def get(self,id):
+        customer = Customer.objects().with_id(id)
+        order = Order.objects(Customer == customer)
+        return mlab.item2json(order)
+
+
 
 
 

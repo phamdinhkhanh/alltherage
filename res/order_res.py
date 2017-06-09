@@ -95,26 +95,6 @@ class OrderRes(Resource):
                 gift[0].delete()
             else:
                 gift[0].update(user_number = user_number)
-            # print("order_items")
-            # print(order_items)
-            # print("date")
-            # print(date)
-            # print("address_order")
-            # print(address_order)
-            # print("phone_number")
-            # print(phone_number)
-            # print("user")
-            # print(Customer.objects().with_id(user_id).get_json())
-            # print("spend")
-            # print(spend + ship_spend - code_price)
-            # print("ship_money")
-            # print(ship_spend)
-            # print("code")
-            # print(code)
-            # print("code_price")
-            # print(code_price)
-
-
             order = Order(items = order_items, date = date, address_order = address_order, phone_number = phone_number,
                           customer = Customer.objects().with_id(user_id),is_Success = False,
                           spend = spend + ship_spend - code_price, ship_money = ship_spend,code = code,

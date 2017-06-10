@@ -66,13 +66,13 @@ class OrderRes(Resource):
             try:
                 sl = int(count)
                 if sl < 1:
-                    return {"message":"Số lượng <= 0 hả mày?"},401
+                    return {"message":"Số lượng > 0 ok?"},401
             except:
                 return {"message":"count là int ok mày?"}, 401
             rage = Rage.objects().with_id(rage_id)
             single_order = SingleOrder(count=count, rage=rage)
             order_items.append(single_order)
-            spend += float(rage["new_price"])*sl
+            spend += (float(rage["new_price"])*int(count))
         if spend == 0:
             return {"message":"đặt hàng cc gì mà bằng 0"}, 401
         try:
@@ -82,19 +82,27 @@ class OrderRes(Resource):
             return {"message":"userid của mày bị điên ah"},401
 
         code = str(code).lower()
-        gift = GiftCode.objects().filter(code=code)
-        code_price = gift[0]["price"]
+        ##gift = GiftCode.objects().filter(code=code)
+        print("get Giftcode")
+        gift = GiftCode.objects(code = code).first()
+        ##code_price = gift[0]["price"]
+        print("get Codeprice")
+        code_price = gift.price
         try:
-            spend_min = gift[0]["spend_min"]
+            ##spend_min = gift[0]["spend_min"]
+            spend_min = gift.spend_min
         except:
             spend_min = -1
         if (spend > 0 and (spend >= spend_min and spend_min != -1)):
-            user_number = gift[0]["user_number"]
+            ##user_number = gift[0]["user_number"]
+            user_number = gift["user_number"]
             user_number -= 1
             if user_number == 0:
-                gift[0].delete()
+                ##gift[0].delete()
+                gift.delete()
             else:
-                gift[0].update(user_number = user_number)
+                ##gift[0].update(user_number = user_number)]
+                gift.update(user_number=user_number)
             order = Order(items = order_items, date = date, address_order = address_order, phone_number = phone_number,
                           customer = Customer.objects().with_id(user_id),is_Success = False,
                           spend = spend + ship_spend - code_price, ship_money = ship_spend,code = code,

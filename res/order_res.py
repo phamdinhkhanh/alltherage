@@ -66,7 +66,7 @@ class OrderRes(Resource):
             try:
                 sl = int(count)
                 if sl < 1:
-                    return {"message":"Số lượng > 0 hả mày?"},401
+                    return {"message":"Số lượng <= 0 hả mày?"},401
             except:
                 return {"message":"count là int ok mày?"}, 401
             rage = Rage.objects().with_id(rage_id)

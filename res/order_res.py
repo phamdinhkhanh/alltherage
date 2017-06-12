@@ -8,16 +8,15 @@ import json
 import requests
 import datetime
 from model.gift import *
-
+import re
 class OrderRes(Resource):
     def get(self):
         orders = Order.objects(is_Success = False)
         return mlab.list2json(orders)
-        #return [order.get_json() for order in orders], 200
 
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument(name="items", type = list, location = "json")
+        parser.add_argument(name="items", action = "append", location = "json")
         parser.add_argument(name="address_order", type=str, location="json")
         parser.add_argument(name="phone_number", type=str, location="json")
         parser.add_argument(name="user_id", type=str, location="json")
@@ -60,19 +59,26 @@ class OrderRes(Resource):
             ship_spend = -1
         order_items = []
         spend = 0
-        for item in items:
-            rage_id = item["id"]
-            count = item["count"]
+        #Tạo dumps string
+        dumps = json.dumps(items)
+        #List dumps
+        ldumps = re.findall(r"[\w']+",dumps)
+        for i in range(0,len(items)+1):
             try:
+                rage_id = ldumps[4*i+1][1:-1]
+                count = int(ldumps[4*i+3])
+                rage = Rage.objects().with_id(rage_id)
+                single_order = SingleOrder(count=count, rage=rage)
+                price = rage.new_price
                 sl = int(count)
-                if sl < 1:
-                    return {"message":"Số lượng > 0 ok?"},401
-            except:
-                return {"message":"count là int ok mày?"}, 401
-            rage = Rage.objects().with_id(rage_id)
-            single_order = SingleOrder(count=count, rage=rage)
-            order_items.append(single_order)
-            spend += (float(rage["new_price"])*int(count))
+                try:
+                    if sl < 1:
+                        return {"message":"Số lượng > 0 ok"},401
+                except:
+                    return {"message":"count là int ok mày?"},401
+                order_items.append(single_order)
+                spend += (price * sl)
+            except: print("Index error")
         if spend == 0:
             return {"message":"đặt hàng cc gì mà bằng 0"}, 401
         try:
@@ -82,26 +88,19 @@ class OrderRes(Resource):
             return {"message":"userid của mày bị điên ah"},401
 
         code = str(code).lower()
-        ##gift = GiftCode.objects().filter(code=code)
-        print("get Giftcode")
         gift = GiftCode.objects(code = code).first()
-        ##code_price = gift[0]["price"]
         print("get Codeprice")
         code_price = gift.price
         try:
-            ##spend_min = gift[0]["spend_min"]
             spend_min = gift.spend_min
         except:
             spend_min = -1
         if (spend > 0 and (spend >= spend_min and spend_min != -1)):
-            ##user_number = gift[0]["user_number"]
             user_number = gift["user_number"]
             user_number -= 1
             if user_number == 0:
-                ##gift[0].delete()
                 gift.delete()
             else:
-                ##gift[0].update(user_number = user_number)]
                 gift.update(user_number=user_number)
             order = Order(items = order_items, date = date, address_order = address_order, phone_number = phone_number,
                           customer = Customer.objects().with_id(user_id),is_Success = False,

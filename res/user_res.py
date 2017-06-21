@@ -32,11 +32,15 @@ class ACustomer(Resource):
         urlFb = body.urlFb
         password = body.password
         customer = Customer.objects().with_id(id)
-        customer.update(address=address, username=username, phone_number=phone_number,urlPic = urlPic,urlFb =urlFb,password = password)
+        customer.update(address=address, username=username, phone_number=phone_number,urlPic=urlPic,urlFb=urlFb,password = password)
         edit_user = Customer.objects().with_id(id)
         return mlab.item2json(edit_user), 200
 
-
+class ACustomerByName(Resource):
+    def get(self, id):
+        print("Get an user by username")
+        customer = Customer.objects(username = id)
+        return mlab.item2json(customer), 200
 
 class CustomerRageLike(Resource):
     def post(self,id):

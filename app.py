@@ -27,8 +27,10 @@ api.add_resource(ARageRes,"/api/rage/<id>")
 api.add_resource(CommentRes,"/api/rage/comment/<id>")
 #get a comment detail
 api.add_resource(CommentIDRes,"/api/rage/comment/<id1>/<id2>")
-#get customer
+#get customer by id in mlab
 api.add_resource(ACustomer,"/api/register/<id>")
+#get customer by username
+api.add_resource(ACustomerByName,"/api/username/<id>")
 #get customer order
 api.add_resource(OrderCustomer,"/api/register/order/<id>")
 #delete customer

@@ -63,7 +63,10 @@ class OrderRes(Resource):
         dumps = json.dumps(items)
         #List dumps
         ldumps = re.findall(r"[\w']+",dumps)
-        for i in range(0,len(items)+1):
+        print("ldumps:",ldumps)
+        print("rage_id",ldumps[1][1:-1])
+        print("count",ldumps[3])
+        for i in range(0,len(items)):
             try:
                 rage_id = ldumps[4*i+1][1:-1]
                 count = int(ldumps[4*i+3])

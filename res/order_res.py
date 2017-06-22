@@ -28,7 +28,7 @@ class OrderRes(Resource):
         phone_number = body.phone_number
         user_id = body.user_id
         code = body["code"]
-
+        print("item:",items);
         if items is None or date is None or address_order is None or phone_number is None or user_id is None or code is None:
             return {"message":"Thiếu trường rồi mày"}, 401
 

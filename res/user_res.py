@@ -39,8 +39,8 @@ class ACustomer(Resource):
 class ACustomerByName(Resource):
     def get(self, id):
         print("Get an user by username")
-        customer = Customer.objects(username = id)
-        return mlab.item2json(customer), 200
+        customer = Customer.objects(username = id).first()
+        return customer.get_id(), 200
 
 class CustomerRageLike(Resource):
     def post(self,id):

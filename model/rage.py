@@ -22,6 +22,6 @@ class RageInfo(Document):
 
     def get_json(self):
         return {
-            "food":self.rage.get_json(),
+            "rage":self.rage.get_json(),
             "info":self.info
         }

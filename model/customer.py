@@ -45,8 +45,7 @@ class Customer(Document):
     def get_id(self):
         str = mlab.item2json(self)
         oid = str["_id"]["$oid"]
-        return {"_id":{
+        return {
             "$oid":oid
-            }
         }
 

@@ -35,6 +35,8 @@ api.add_resource(UpdateAddressOrder,"/api/register/updateAddressOrder/<id>")
 api.add_resource(ACustomerByName,"/api/username/<id>")
 #get customer order
 api.add_resource(OrderCustomer,"/api/register/order/<id>")
+#get customer order last
+api.add_resource(OrderLastCustomer,"/api/register/orderlast/<id>")
 #delete customer
 api.add_resource(RegisterRes,"/api/register")
 #get list rage customer like

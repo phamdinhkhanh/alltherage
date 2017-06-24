@@ -57,6 +57,7 @@ class OrderRes(Resource):
             ship_spend = float(distance)*3000
         except:
             ship_spend = -1
+            return {"message":"Địa chỉ sai!"}, 401
         order_items = []
         spend = 0
         #Tạo dumps string
@@ -66,7 +67,7 @@ class OrderRes(Resource):
         print("ldumps:",ldumps)
         print("rage_id",ldumps[1][1:-1])
         print("count",ldumps[3])
-        for i in range(0,len(items)):
+        for i in range(0,len(items)+1):
             try:
                 rage_id = ldumps[4*i+1][1:-1]
                 count = int(ldumps[4*i+3])

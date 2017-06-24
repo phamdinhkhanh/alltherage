@@ -29,6 +29,8 @@ api.add_resource(CommentRes,"/api/rage/comment/<id>")
 api.add_resource(CommentIDRes,"/api/rage/comment/<id1>/<id2>")
 #get customer by id in mlab
 api.add_resource(ACustomer,"/api/register/<id>")
+#update customer order address
+api.add_resource(UpdateAddressOrder,"/api/register/updateAddressOrder/<id>")
 #get customer by username
 api.add_resource(ACustomerByName,"/api/username/<id>")
 #get customer order

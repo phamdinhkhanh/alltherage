@@ -54,7 +54,9 @@ class OrderRes(Resource):
             km = elements[0]["distance"]["text"]
             txt = str(km).split(" ")
             distance = txt[0].replace(",",".")
-            ship_spend = float(distance)*3000
+            #Làm tròn tiền ship chia hết cho 5
+            ship_spend = round(float(distance)*3000/5000,0)*5000
+            print("ship_spend:",ship_spend,"address:",json_data)
         except:
             ship_spend = -1
             return {"message":"Địa chỉ không hợp lệ!"}, 401

@@ -19,6 +19,7 @@ class ACustomer(Resource):
     def put(self, id):
         parser = reqparse.RequestParser()
         parser.add_argument(name="address", type=str, location="json")
+        parser.add_argument(name="address_order", type = str, location ="json")
         parser.add_argument(name="username", type=str, location="json")
         parser.add_argument(name="phone_number", type=str, location="json")
         parser.add_argument(name="urlPic",type=str,location="json")
@@ -26,13 +27,14 @@ class ACustomer(Resource):
         parser.add_argument(name="password",type=str,location="json")
         body = parser.parse_args()
         address = body.address
+        address_order = body.address_order
         username = body.username
         phone_number = body.phone_number
         urlPic = body.urlPic
         urlFb = body.urlFb
         password = body.password
         customer = Customer.objects().with_id(id)
-        customer.update(address=address, username=username, phone_number=phone_number,urlPic=urlPic,urlFb=urlFb,password = password)
+        customer.update(address=address,address_order = address_order, username=username, phone_number=phone_number,urlPic=urlPic,urlFb=urlFb,password = password)
         edit_user = Customer.objects().with_id(id)
         return mlab.item2json(edit_user), 200
 

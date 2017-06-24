@@ -57,7 +57,7 @@ class OrderRes(Resource):
             ship_spend = float(distance)*3000
         except:
             ship_spend = -1
-            return {"message":"Địa chỉ sai!"}, 401
+            return {"message":"Địa chỉ không hợp lệ!"}, 401
         order_items = []
         spend = 0
         #Tạo dumps string
@@ -77,7 +77,7 @@ class OrderRes(Resource):
                 sl = int(count)
                 try:
                     if sl < 1:
-                        return {"message":"Số lượng > 0 ok"},401
+                        return {"message":"Số lượng phải > 0"},401
                 except:
                     return {"message":"count là int ok mày?"},401
                 order_items.append(single_order)
@@ -157,6 +157,11 @@ class OrderCustomer(Resource):
         return mlab.item2json(order)
 
 
+    def delete(self,id):
+        customer = Customer.objects().with_id(id)
+        order = Order.objects(Customer == customer)
+        order.delete()
+        return {"message":"OK"},200
 
 
 

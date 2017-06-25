@@ -156,7 +156,8 @@ class OrderLastCustomer(Resource):
     def get(self,id):
         customer = Customer.objects().with_id(id)
         order = Order.objects(Customer == customer).order_by('-id')[0]
-        return mlab.item2json(order)
+        order.get_singleOrders();
+        return order.get_singleOrders();
 
 class OrderCustomer(Resource):
     def get(self,id):

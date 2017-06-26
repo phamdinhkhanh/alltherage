@@ -31,6 +31,14 @@ api.add_resource(CommentIDRes,"/api/rage/comment/<id1>/<id2>")
 api.add_resource(ACustomer,"/api/register/<id>")
 #update customer order address
 api.add_resource(UpdateAddressOrder,"/api/register/updateAddressOrder/<id>")
+#update customer facebook
+api.add_resource(UpdateFb,"/api/register/updateFb/<id>")
+#update customer google
+api.add_resource(UpdateGG,"/api/register/updateGG/<id>")
+#update customer facebook
+api.add_resource(UpdatePhone,"/api/register/updatePhone/<id>")
+#update mamay
+api.add_resource(UpdateMamay,"/api/register/updateMamay/<id>")
 #get customer by username
 api.add_resource(ACustomerByName,"/api/username/<id>")
 #get customer order

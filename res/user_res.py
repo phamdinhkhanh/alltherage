@@ -20,21 +20,89 @@ class ACustomer(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument(name="address", type=str, location="json")
         parser.add_argument(name="username", type=str, location="json")
+        parser.add_argument(name="username_show", type=str, location="json")
         parser.add_argument(name="phone_number", type=str, location="json")
-        parser.add_argument(name="urlPic",type=str,location="json")
+        parser.add_argument(name="urlPicEmail", type=str, location="json")
+        parser.add_argument(name="email", type=str, location="json")
+        parser.add_argument(name="urlPicFb",type=str,location="json")
         parser.add_argument(name="urlFb",type=str,location="json")
         parser.add_argument(name="password",type=str,location="json")
         body = parser.parse_args()
         address = body.address
         username = body.username
+        username_show = body.username_show
         phone_number = body.phone_number
-        urlPic = body.urlPic
+        urlPicEmail = body.urlPicEmail
+        email = body.email
+        urlPicFb = body.urlPicFb
         urlFb = body.urlFb
         password = body.password
         customer = Customer.objects().with_id(id)
-        customer.update(address=address,username=username, phone_number=phone_number,urlPic=urlPic,urlFb=urlFb,password = password)
+        customer.update(address=address,username=username, username_show = username_show, phone_number=phone_number,urlPicEmail=urlPicEmail,
+        email = email,urlPicFb=urlPicFb,urlFb = urlFb,password = password)
         edit_user = Customer.objects().with_id(id)
         return mlab.item2json(edit_user), 200
+
+class UpdateGG(Resource):
+    def put(self, id):
+        parser = reqparse.RequestParser()
+        parser.add_argument(name="username_show", type=str, location="json")
+        parser.add_argument(name="urlPicEmail", type=str, location="json")
+        parser.add_argument(name="email", type=str, location="json")
+        body = parser.parse_args()
+        username_show = body.username_show
+        urlPicEmail = body.urlPicEmail
+        email = body.email
+        customer = Customer.objects().with_id(id)
+        customer.update(username_show=username_show, urlPicEmail=urlPicEmail,email = email)
+        edit_user = Customer.objects().with_id(id)
+        return mlab.item2json(edit_user), 200
+
+class UpdateFb(Resource):
+    def put(self, id):
+        parser = reqparse.RequestParser()
+        parser.add_argument(name="username_show", type=str, location="json")
+        parser.add_argument(name="urlFb", type=str, location="json")
+        parser.add_argument(name="urlPicFb", type=str, location="json")
+        body = parser.parse_args()
+        username_show = body.username_show
+        urlPicFb = body.urlPicFb
+        urlFb = body.urlFb
+        customer = Customer.objects().with_id(id)
+        customer.update(username_show=username_show, urlPicFb=urlPicFb,urlFb = urlFb)
+        edit_user = Customer.objects().with_id(id)
+        return mlab.item2json(edit_user), 200
+
+
+
+class UpdatePhone(Resource):
+    def put(self, id):
+        parser = reqparse.RequestParser()
+        parser.add_argument(name="username_show", type=str, location="json")
+        parser.add_argument(name="email", type=str, location="json")
+        parser.add_argument(name="phone_number", type=str, location="json")
+        body = parser.parse_args()
+        username_show = body.username_show
+        email = body.email
+        phone_number = body.phone_number
+        customer = Customer.objects().with_id(id)
+        customer.update(username_show= username_show,phone_number=phone_number, email = email)
+        edit_user = Customer.objects().with_id(id)
+        return mlab.item2json(edit_user), 200
+
+class UpdateMamay(Resource):
+    def put(self,id):
+        parser = reqparse.RequestParser()
+        parser.add_argument(name="mamay", type=str, location="json")
+        body = parser.parse_args()
+        mamay = body.mamay
+        customer = Customer.objects().with_id(id)
+        customer.update(mamay = mamay)
+        edit_user = Customer.objects().with_id(id)
+        return mlab.item2json(edit_user), 200
+
+
+
 
 class UpdateAddressOrder(Resource):
     def put(self,id):

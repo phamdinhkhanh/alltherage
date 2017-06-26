@@ -24,7 +24,7 @@ class CommentRes(Resource):
         comment = Comment(customer = customer, message = message, date = str(date),rage = rage)
         comment.save()
         comment_add = Comment.objects().with_id(comment.id)
-        return mlab.item2json(comment_add),200
+        return comment_add.get_json(),200
 
     def get(self,id):
         rage = Rage.objects().with_id(id)

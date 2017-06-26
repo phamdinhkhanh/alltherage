@@ -47,6 +47,6 @@ class Order(Document):
         str = mlab.item2json(self)
         oid = str["_id"]["$oid"]
         return {
-            "id":oid,
-            "items": [item.get_json() for item in self.items]
+             "id":oid,
+             "items": [item.get_json() for item in self.items]
         }

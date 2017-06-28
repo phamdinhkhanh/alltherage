@@ -40,6 +40,17 @@ class RageRes(Resource):
         add_rage = Rage.objects().with_id(rage.id)
         return mlab.item2json(add_rage), 200
 
+class RageUpdate(Resource):
+    def put(self,id):
+        rage = Rage.objects().with_id(id)
+        current_number_seen = rage.number_seen
+        if current_number_seen is None:
+            number_seen = 1
+        else: number_seen = current_number_seen + 1
+        rage.update(number_seen = number_seen)
+        update_rage = Rage.objects().with_id(rage.id)
+        return mlab.item2json(update_rage)
+
 class ARageRes(Resource):
     def get(self,id):
         rage = Rage.objects().with_id(id)

@@ -9,6 +9,7 @@ class Comment(Document):
     message=StringField()
     rage=ReferenceField("Rage")
     date=StringField()
+    numberlike=IntField()
 
     def get_json(self):
         str=mlab.item2json(self)
@@ -18,5 +19,17 @@ class Comment(Document):
             "customer":self.customer.get_id(),
             "message":self.message,
             "rage":self.rage.get_oid(),
-            "date":self.date
+            "date":self.date,
+            "numberlike":self.numberlike
+        }
+
+    def get_json_norage(self):
+        str=mlab.item2json(self)
+        oid=str["_id"]["$oid"]
+        return {
+            "id_comment":oid,
+            "customer":self.customer.get_id(),
+            "message":self.message,
+            "date":self.date,
+            "numberlike":self.numberlike
         }

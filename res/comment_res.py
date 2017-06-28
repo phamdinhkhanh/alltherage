@@ -31,6 +31,21 @@ class CommentRes(Resource):
         comments = Comment.objects(rage = rage)
         return mlab.list2json(comments), 200
 
+class CommentUpdate(Resource):
+    def get(self,id):
+        comment = Comment.objects().with_id(id)
+        return mlab.item2json(comment)
+
+    def put(self,id):
+        comment = Comment.objects().with_id(id)
+        current_numberlike = comment.numberlike
+        if current_numberlike is None:
+            numberlike = 1
+        else: numberlike = current_numberlike+1
+        comment.update(numberlike = numberlike)
+        updatecomment = Comment.objects().with_id(id)
+        return mlab.item2json(updatecomment)
+
 class CommentIDRes(Resource):
     def get(self,id1,id2):
         comment = Comment.objects().with_id(id2)

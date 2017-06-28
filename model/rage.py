@@ -10,6 +10,7 @@ class Rage(Document):
     new_price = FloatField();
     discount_rate = FloatField();
     is_favorite = BooleanField();
+    number_seen = IntField();
 
     def get_json(self):
         return mlab.item2json(self)
@@ -32,7 +33,8 @@ class Rage(Document):
            "old_price": self.old_price,
            "new_price": self.new_price,
            "discount_rate": self.discount_rate,
-           "is_favorite": self.is_favorite
+           "is_favorite": self.is_favorite,
+           "number_seen":self.number_seen
         }
 
 

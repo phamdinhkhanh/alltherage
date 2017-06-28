@@ -23,8 +23,12 @@ jwt = jwt_init(app)
 
 api.add_resource(RageRes,"/api/rage")
 api.add_resource(ARageRes,"/api/rage/<id>")
+#update number_seen into rage
+api.add_resource(RageUpdate,"/api/rage/seen/<id>")
 #comment into rage
 api.add_resource(CommentRes,"/api/rage/comment/<id>")
+#comment update
+api.add_resource(CommentUpdate,"/api/comment/<id>")
 #get a comment detail
 api.add_resource(CommentIDRes,"/api/rage/comment/<id1>/<id2>")
 #get customer by id in mlab

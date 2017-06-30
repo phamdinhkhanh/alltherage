@@ -37,12 +37,13 @@ class CommentUpdate(Resource):
         return mlab.item2json(comment)
 
     def put(self,id):
+        parser = reqparse.RequestParser()
+        parser.add_argument(name="numberlike", type=int, location="json")
+        body = parser.parse_args()
+        numberlike = body["numberlike"]
         comment = Comment.objects().with_id(id)
-        current_numberlike = comment.numberlike
-        if current_numberlike is None:
-            numberlike = 1
-        else: numberlike = current_numberlike+1
         comment.update(numberlike = numberlike)
+        print(123)
         updatecomment = Comment.objects().with_id(id)
         return mlab.item2json(updatecomment)
 

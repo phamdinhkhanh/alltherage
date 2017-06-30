@@ -15,7 +15,7 @@ class Comment(Document):
         str=mlab.item2json(self)
         oid=str["_id"]["$oid"]
         return {
-            "id_comment":oid,
+            "oid":oid,
             "customer":self.customer.get_id(),
             "message":self.message,
             "rage":self.rage.get_oid(),
@@ -27,7 +27,7 @@ class Comment(Document):
         str=mlab.item2json(self)
         oid=str["_id"]["$oid"]
         return {
-            "id_comment":oid,
+            "oid":oid,
             "customer":self.customer.get_id(),
             "message":self.message,
             "date":self.date,

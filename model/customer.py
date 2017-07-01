@@ -61,5 +61,6 @@ class Customer(Document):
             "oid":oid,
             "username_show":self.username_show,
             "urlPicFb":self.urlPicFb,
-            "urlPicEmail": self.urlPicEmail
+            "urlPicEmail": self.urlPicEmail,
+            "type_account":self.type_account
         }

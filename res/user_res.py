@@ -73,8 +73,6 @@ class UpdateFb(Resource):
         edit_user = Customer.objects().with_id(id)
         return mlab.item2json(edit_user), 200
 
-
-
 class UpdatePhone(Resource):
     def put(self, id):
         parser = reqparse.RequestParser()
@@ -100,9 +98,6 @@ class UpdateMamay(Resource):
         customer.update(mamay = mamay)
         edit_user = Customer.objects().with_id(id)
         return mlab.item2json(edit_user), 200
-
-
-
 
 class UpdateAddressOrder(Resource):
     def put(self,id):

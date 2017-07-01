@@ -52,21 +52,11 @@ class Customer(Document):
             "oid":oid
         }
 
-
-    def get_information(self):
-        str = mlab.item2json(self)
-        oid = str["_id"]["$oid"]
-        return {
-            "$oid":oid,
-            "username_show":self.username_show,
-            "urlPicFb":self.urlPicFb,
-            "urlPicEmail": self.urlPicEmail
-        }
-
     def get_avatar(self):
         str = mlab.item2json(self)
         oid = str["_id"]["$oid"]
         return {
+            "oid":oid,
             "username_show":self.username_show,
             "urlPicFb":self.urlPicFb,
             "urlPicEmail": self.urlPicEmail

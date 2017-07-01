@@ -16,7 +16,7 @@ class Comment(Document):
         oid=str["_id"]["$oid"]
         return {
             "oid":oid,
-            "customer":self.customer.get_id(),
+            "customer":self.customer.get_avatar(),
             "message":self.message,
             "rage":self.rage.get_oid(),
             "date":self.date,

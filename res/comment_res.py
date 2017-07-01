@@ -34,7 +34,7 @@ class CommentRes(Resource):
 class CommentUpdate(Resource):
     def get(self,id):
         comment = Comment.objects().with_id(id)
-        return mlab.item2json(comment)
+        return comment.get_json(),200
 
     def put(self,id):
         parser = reqparse.RequestParser()

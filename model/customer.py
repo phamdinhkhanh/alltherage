@@ -49,12 +49,16 @@ class Customer(Document):
         str = mlab.item2json(self)
         oid = str["_id"]["$oid"]
         return {
-            "$oid":oid
+            "oid":oid
         }
 
 
     def get_information(self):
+        str = mlab.item2json(self)
+        oid = str["_id"]["$oid"]
         return {
-            "urlPic":self.urlPicFb,
-            "urlFb":self.urlFb
+            "$oid":oid,
+            "username_show":self.username_show,
+            "urlPicFb":self.urlPicFb,
+            "urlPicEmail": self.urlPicEmail
         }

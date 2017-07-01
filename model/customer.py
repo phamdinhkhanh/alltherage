@@ -19,7 +19,8 @@ class Customer(Document):
     urlFb = StringField();
     email = StringField();
     rages_like = ListField(ReferenceField("Rage"));
-    comment = ListField(ReferenceField("Comment"))
+    comment = ListField(ReferenceField("Comment"));
+    type_account = StringField();
 
     def get_json(self):
         str = mlab.item2json(self)
@@ -41,7 +42,8 @@ class Customer(Document):
             "urlFb":self.urlFb,
             "email":self.email,
             "rages_like":self.rages_like,
-            "comment":self.comment
+            "comment":self.comment,
+            "type_account":self.type_account
         }
 
 

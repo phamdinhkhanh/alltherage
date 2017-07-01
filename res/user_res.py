@@ -54,7 +54,7 @@ class UpdateGG(Resource):
         urlPicEmail = body.urlPicEmail
         email = body.email
         customer = Customer.objects().with_id(id)
-        customer.update(username_show=username_show, urlPicEmail=urlPicEmail,email = email)
+        customer.update(username_show=username_show, urlPicEmail=urlPicEmail,email = email, type_account = "GG")
         edit_user = Customer.objects().with_id(id)
         return mlab.item2json(edit_user), 200
 
@@ -69,7 +69,7 @@ class UpdateFb(Resource):
         urlPicFb = body.urlPicFb
         urlFb = body.urlFb
         customer = Customer.objects().with_id(id)
-        customer.update(username_show=username_show, urlPicFb=urlPicFb,urlFb = urlFb)
+        customer.update(username_show=username_show, urlPicFb=urlPicFb,urlFb = urlFb, type_account="FB")
         edit_user = Customer.objects().with_id(id)
         return mlab.item2json(edit_user), 200
 
@@ -86,7 +86,7 @@ class UpdatePhone(Resource):
         email = body.email
         phone_number = body.phone_number
         customer = Customer.objects().with_id(id)
-        customer.update(username_show= username_show,phone_number=phone_number, email = email)
+        customer.update(username_show= username_show,phone_number=phone_number, email = email, type_account = "PH")
         edit_user = Customer.objects().with_id(id)
         return mlab.item2json(edit_user), 200
 

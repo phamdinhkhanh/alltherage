@@ -29,7 +29,8 @@ class CommentRes(Resource):
     def get(self,id):
         rage = Rage.objects().with_id(id)
         comments = Comment.objects(rage = rage)
-        return [item.get_json() for item in comments],200
+        l = [item.get_json() for item in comments]
+        return l,200
 
 
 class CommentUpdate(Resource):

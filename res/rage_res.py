@@ -15,11 +15,13 @@ class RageRes(Resource):
         parser.add_argument(name="description", type=str, location="json")
         parser.add_argument(name="old_price", type=float, location="json")
         parser.add_argument(name="new_price", type=float, location="json")
+        parser.add_argument(name="code", type=str, location="json")
 
         body = parser.parse_args()
         name = body.name
         url = body.url
         description = body.description
+        code = body.code
         try:
             old_price = float(body.old_price)
             new_price = float(body.new_price)
@@ -34,7 +36,8 @@ class RageRes(Resource):
         if found_rage is not None:
             return {"message":"Rage already exist"}, 401
 
-        rage = Rage(name=name, url=url, description = description, old_price = old_price,new_price =new_price, discount_rate=discount_rate, is_favorite = False)
+        rage = Rage(name=name, url=url, description = description, old_price = old_price,new_price =new_price
+                    , discount_rate=discount_rate, is_favorite = False, code = code)
         rage.save()
 
         add_rage = Rage.objects().with_id(rage.id)
@@ -70,12 +73,14 @@ class ARageRes(Resource):
         parser.add_argument(name="old_price", type=float, location="json")
         parser.add_argument(name="new_price", type=float, location="json")
         parser.add_argument(name="is_favorite", type=bool, location="json")
+        parser.add_argument(name="code", type=str, location="json")
 
         body = parser.parse_args()
         name = body.name
         url = body.url
         description = body.description
         is_favorite = body.is_favorite
+        code = body.code
         try:
             old_price = float(body.old_price)
             new_price = float(body.new_price)
@@ -89,7 +94,7 @@ class ARageRes(Resource):
 
         rage = Rage.objects().with_id(id)
         rage.update(name = name, url = url, description = description, old_price = old_price, new_price = new_price, discount_rate = discount_rate
-                    ,is_favorite = is_favorite)
+                    ,is_favorite = is_favorite, code = code)
         update_rage = Rage.objects().with_id(id)
         return mlab.item2json(update_rage),200
 

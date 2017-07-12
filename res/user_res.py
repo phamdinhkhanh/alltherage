@@ -9,7 +9,7 @@ class ACustomer(Resource):
     def get(self, id):
         print("Get an user")
         customer = Customer.objects().with_id(id)
-        return customer.get_information(), 200
+        return mlab.item2json(customer), 200
 
     def delete(self, id):
         customer = Customer.objects().with_id(id)

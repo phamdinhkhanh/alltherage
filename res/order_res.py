@@ -134,7 +134,6 @@ class OrderTotalSpend(Resource):
         order = Order.objects().with_id(id)
         if order.is_Success != True:
             order.update(set__is_Success = True)
-            order_add = Order.objects().with_id(id)
             customer = order["customer"]
             spend = float(order["spend"])
             if customer["total_spend"] is not None:

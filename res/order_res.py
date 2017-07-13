@@ -56,6 +56,8 @@ class OrderRes(Resource):
             distance = txt[0].replace(",",".")
             #Làm tròn tiền ship chia hết cho 5
             ship_spend = round(float(distance)*3000/5000,0)*5000
+            if(ship_spend > 50000):
+                ship_spend = 50000
             print("ship_spend:",ship_spend,"address:",json_data)
         except:
             ship_spend = -1
@@ -124,6 +126,36 @@ class OrderRes(Resource):
         #push_service.notify_topic_subscribers(topic_name="admin", message_body="Có đơn hàng mới",
         #                                      message_title="Kiểm tra ngay")
         return mlab.item2json(add_order), 200
+
+class OrderShipSpend(Resource):
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument(name="address_order", action="str", location="json")
+        body = parser.parse_args()
+        address_order = body["address_order"]
+        API_KEY = "AIzaSyCEB4QVng3uFEQ-SwxfwOWAG4H3sr7Mfi8"
+        url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=driving&language=vi-VN&key={2}".format(
+            "số nhà 1A/178, đường Hoàng Mai , quận Hoàng Mai, thành phố Hà nội", str(address_order) + " Hà Nội",
+            API_KEY)
+        try:
+            req = requests.get(url_request)
+            json_data = json.loads(req.content)
+            list_add = json_data["rows"]
+            elements = list_add[0]["elements"]
+            km = elements[0]["distance"]["text"]
+            txt = str(km).split(" ")
+            distance = txt[0].replace(",", ".")
+            # Làm tròn tiền ship chia hết cho 5
+            print("distance:",distance)
+            ship_spend = round(float(distance) * 3000 / 5000, 0) * 5000
+            if(ship_spend > 50000):
+                ship_spend = 50000
+            print("ship_spend:", ship_spend, "address:", json_data)
+            return {"ship_spend":ship_spend}, 200
+        except:
+            ship_spend = -1
+            return {"message": "Địa chỉ không hợp lệ!"}, 401
+
 
 class OrderTotalSpend(Resource):
     def get(self,id):

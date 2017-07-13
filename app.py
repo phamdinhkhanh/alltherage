@@ -55,6 +55,8 @@ api.add_resource(RegisterRes,"/api/register")
 api.add_resource(CustomerRageLike,"/register/like/<id>")
 #post a new order list
 api.add_resource(OrderRes,"/order")
+#get spend ship
+api.add_resource(OrderShipSpend,"/orderShipSpend")
 #add into customer total spend when order success
 api.add_resource(OrderTotalSpend,"/order/<id>")
 #add gift code

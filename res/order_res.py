@@ -55,7 +55,7 @@ class OrderRes(Resource):
             txt = str(km).split(" ")
             distance = txt[0].replace(",",".")
             #Làm tròn tiền ship chia hết cho 5
-            ship_spend = round(float(distance)*3000/5,0)*5000
+            ship_spend = round(round(float(distance)*3000,0)/5000,0)*5000
             if(ship_spend > 50000):
                 ship_spend = 50000
             print("ship_spend:",ship_spend,"address:",json_data)
@@ -147,7 +147,7 @@ class OrderShipSpend(Resource):
             distance = txt[0].replace(",", ".")
             # Làm tròn tiền ship chia hết cho 5
             print("distance:",distance)
-            ship_spend = round(float(distance) * 3000 / 5, 0) * 5000
+            ship_spend = round(round(float(distance)*3000,0)/5000,0)*5000
             if(ship_spend > 50000):
                 ship_spend = 50000
             print("ship_spend:", ship_spend, "address:", json_data)

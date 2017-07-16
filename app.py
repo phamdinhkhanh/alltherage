@@ -8,6 +8,7 @@ from res.user_res import *
 from res.order_res import *
 from res.gift_res import *
 from res.login import jwt_init,RegisterRes
+from res.position_res import *
 import logging
 import sys
 
@@ -61,6 +62,12 @@ api.add_resource(OrderShipSpend,"/orderShipSpend")
 api.add_resource(OrderTotalSpend,"/order/<id>")
 #add gift code
 api.add_resource(GiftRes,"/giftcode")
+#get all position
+api.add_resource(PositionRes,"/api/position")
+#put a postion
+api.add_resource(APositionRes,"/api/position/<id>")
+#update number seen
+api.add_resource(PositionNumberSeenUpdate,"/api/posititon/numberseen/<id>")
 
 @app.route('/')
 def hello():

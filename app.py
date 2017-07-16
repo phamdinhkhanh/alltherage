@@ -68,6 +68,8 @@ api.add_resource(PositionRes,"/api/position")
 api.add_resource(APositionRes,"/api/position/<id>")
 #update number seen
 api.add_resource(PositionNumberSeenUpdate,"/api/posititon/numberseen/<id>")
+#position rating seen
+api.add_resource(PositionRating,"/api/posititon/rating/<id>")
 
 @app.route('/')
 def hello():

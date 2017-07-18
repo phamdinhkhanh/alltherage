@@ -53,7 +53,7 @@ class PositionRes(Resource):
         position = Position(name=name, url=url, website=website, address = address,description = description,
                             opentime = opentime, phone = phone,latitude = latitude,longtitude = longtitude,
                             number_seen = number_seen, number_rating = number_rating,rating = rating,
-                            customer = Customer.objects().with_id(user_id))
+                            customer = Customer.objects().with_id(user_id),code = code)
 
         position.save()
 
@@ -156,7 +156,7 @@ class APositionRes(Resource):
         position.update(name=name, url=url, website=website, address = address,description = description,
                             opentime = opentime, phone = phone,latitude = latitude,longtitude = longtitude,
                             number_seen = number_seen, rating = rating,number_rating = number_rating,
-                            customer = Customer.objects().with_id(user_id))
+                            customer = Customer.objects().with_id(user_id), code = code)
         update_position = Position.objects().with_id(id)
         return mlab.item2json(update_position),200
 

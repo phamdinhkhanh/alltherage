@@ -3,6 +3,7 @@ import mlab
 from flask_restful import Resource, Api
 
 from res.comment_res import *
+from res.commentposition_res import CommentPositionRes, CommentPositionUpdate, CommentPositionIDRes
 from res.rage_res import *
 from res.user_res import *
 from res.order_res import *
@@ -68,8 +69,16 @@ api.add_resource(PositionRes,"/api/position")
 api.add_resource(APositionRes,"/api/position/<id>")
 #update number seen
 api.add_resource(PositionNumberSeenUpdate,"/api/posititon/numberseen/<id>")
+#update number like
+api.add_resource(PositionNumberLikeUpdate,"/api/posititon/numberlike/<id>")
 #position rating seen
 api.add_resource(PositionRating,"/api/posititon/rating/<id>")
+#comment into position
+api.add_resource(CommentPositionRes,"/api/position/comment/<id>")
+#comment update in position
+api.add_resource(CommentPositionUpdate,"/api/commentposition/<id>")
+#get a comment detail in position
+api.add_resource(CommentPositionIDRes,"/api/position/comment/<id1>/<id2>")
 
 @app.route('/')
 def hello():

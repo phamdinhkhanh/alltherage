@@ -73,6 +73,19 @@ class PositionNumberSeenUpdate(Resource):
         update_position = Position.objects().with_id(position.id)
         return mlab.item2json(update_position)
 
+class PositionNumberLikeUpdate(Resource):
+    def put(self,id):
+        position = Position.objects().with_id(id)
+        if position is None:
+            return {"message":"Không tồn tại"},401
+        current_number_like = position.number_like
+        if current_number_like is None:
+            number_like = 1
+        else: number_like = current_number_like + 1
+        position.update(number_like = number_like)
+        update_position = Position.objects().with_id(position.id)
+        return mlab.item2json(update_position)
+
 class PositionRating(Resource):
     def put(self,id):
         parser = reqparse.RequestParser()

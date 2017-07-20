@@ -1,6 +1,9 @@
 from flask_restful import Resource, reqparse
+
+from model.commentposition import CommentPostion
 from model.order import *
 from model.customer import Customer
+from model.position import Position
 from model.rage import Rage
 import mlab
 from pyfcm.fcm import FCMNotification
@@ -18,24 +21,25 @@ class CommentPositionRes(Resource):
         body = parser.parse_args()
         id_user = body["user_id"]
         message = body["message"]
-        rage = Rage.objects().with_id(id)
+        position = Position.objects().with_id(id)
         customer = Customer.objects().with_id(id_user)
         date = datetime.datetime.utcnow() + datetime.timedelta(hours=7)
-        comment = Comment(customer = customer, message = message, date = str(date),rage = rage)
+        comment = CommentPostion(customer = customer, message = message, date = str(date),position = position)
         comment.save()
-        comment_add = Comment.objects().with_id(comment.id)
+        comment_add = CommentPostion.objects().with_id(comment.id)
         return comment_add.get_json(),200
 
     def get(self,id):
-        rage = Rage.objects().with_id(id)
-        comments = Comment.objects(rage = rage)
+        position = Position.objects().with_id(id)
+        comments = CommentPostion.objects(position = position)
         l = [item.get_json() for item in comments]
+        # l = mlab.list2json(comments)
         return l,200
 
 
 class CommentPositionUpdate(Resource):
     def get(self,id):
-        comment = Comment.objects().with_id(id)
+        comment = CommentPostion.objects().with_id(id)
         return comment.get_json(),200
 
     def put(self,id):
@@ -43,22 +47,21 @@ class CommentPositionUpdate(Resource):
         parser.add_argument(name="numberlike", type=int, location="json")
         body = parser.parse_args()
         numberlike = body["numberlike"]
-        comment = Comment.objects().with_id(id)
+        comment = CommentPostion.objects().with_id(id)
         comment.update(numberlike = numberlike)
-        print(123)
-        updatecomment = Comment.objects().with_id(id)
+        updatecomment = CommentPostion.objects().with_id(id)
         return mlab.item2json(updatecomment)
 
 class CommentPositionIDRes(Resource):
     def get(self,id1,id2):
-        comment = Comment.objects().with_id(id2)
+        comment = CommentPostion.objects().with_id(id2)
         if comment is not None:
             return mlab.item2json(comment),200
         else:
             return {"message":"Lam gi co comment nay"}, 200
 
     def delete(self,id1,id2):
-        comment = Comment.objects().with_id(id2)
+        comment = CommentPostion.objects().with_id(id2)
         if comment is not None:
             comment.delete()
             return {"message":"OK"},200
@@ -70,9 +73,9 @@ class CommentPositionIDRes(Resource):
         parser.add_argument(name="message", type=str, location="json")
         body = parser.parse_args()
         message = body["message"]
-        comment = Comment.objects().with_id(id2)
+        comment = CommentPostion.objects().with_id(id2)
         date = datetime.datetime.utcnow() + datetime.timedelta(hours=7)
         comment.update(message = message, date = str(date))
         comment.save()
-        comment_add = Comment.objects().with_id(id2)
+        comment_add = CommentPostion.objects().with_id(id2)
         return mlab.item2json(comment_add),200

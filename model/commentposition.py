@@ -7,7 +7,7 @@ from model.position import *
 class CommentPostion(Document):
     customer=ReferenceField("Customer")
     message=StringField()
-    rage=ReferenceField("Position")
+    position=ReferenceField("Position")
     date=StringField()
     numberlike=IntField()
 
@@ -23,7 +23,7 @@ class CommentPostion(Document):
             "numberlike":self.numberlike
         }
 
-    def get_json_norage(self):
+    def get_json_noposition(self):
         str=mlab.item2json(self)
         oid=str["_id"]["$oid"]
         return {

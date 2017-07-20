@@ -14,6 +14,7 @@ class Position(Document):
     latitude = FloatField();
     longtitude = FloatField();
     number_seen = IntField();
+    number_like = IntField();
     code =StringField();
     rating = FloatField();
     number_rating = IntField();
@@ -34,13 +35,14 @@ class Position(Document):
             "latitude": self.latitude,
             "longtitude":self.longtitude,
             "number_seen":self.number_seen,
+            "number_like":self.number_like,
             "code":self.code,
             "rating":self.rating,
             "number_rating":self.number_rating,
             "customer":self.customer.get_json_oid()
         }
 
-    def get_json_oid(self):
+    def get_oid(self):
         str=mlab.item2json(self)
         oid=str["_id"]["$oid"]
         return {

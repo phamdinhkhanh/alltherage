@@ -50,7 +50,7 @@ class CommentPositionUpdate(Resource):
         comment = CommentPostion.objects().with_id(id)
         comment.update(numberlike = numberlike)
         updatecomment = CommentPostion.objects().with_id(id)
-        return mlab.item2json(updatecomment)
+        return updatecomment.get_json()
 
 class CommentPositionIDRes(Resource):
     def get(self,id1,id2):

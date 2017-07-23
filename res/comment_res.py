@@ -47,7 +47,7 @@ class CommentUpdate(Resource):
         comment.update(numberlike = numberlike)
         print(123)
         updatecomment = Comment.objects().with_id(id)
-        return mlab.item2json(updatecomment)
+        return updatecomment.get_json()
 
 class CommentIDRes(Resource):
     def get(self,id1,id2):

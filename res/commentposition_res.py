@@ -10,6 +10,7 @@ from pyfcm.fcm import FCMNotification
 import json
 import requests
 from model.comment import *
+from res.position_res import *
 import datetime
 
 
@@ -18,13 +19,35 @@ class CommentPositionRes(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument(name = "user_id", type = str, location = "json")
         parser.add_argument(name = "message", type = str, location = "json")
+        parser.add_argument(name = "rating", type = int, location = "json")
         body = parser.parse_args()
         id_user = body["user_id"]
         message = body["message"]
+        rating = body["rating"]
         position = Position.objects().with_id(id)
         customer = Customer.objects().with_id(id_user)
         date = datetime.datetime.utcnow() + datetime.timedelta(hours=7)
-        comment = CommentPostion(customer = customer, message = message, date = str(date),position = position)
+        comment = CommentPostion(customer = customer, message = message, date = str(date),position = position, rating = rating)
+        #update position rating
+        if rating is None:
+            comment.save()
+            comment_add = CommentPostion.objects().with_id(comment.id)
+            return comment_add.get_json(), 200
+        if rating > 5 or rating < 0:
+            return {"message":"Rating sai giá trị"}, 401
+        position = Position.objects().with_id(id)
+        if position is None:
+            return {"message": "Không tồn tại"}, 401
+        if position.rating is None:
+            current_rating = 0
+        else:
+            current_rating = position.rating
+        if position.number_rating is None:
+            current_number_rating = 0
+        else:
+            current_number_rating = position.number_rating
+        update_rating = (current_rating*current_number_rating+rating)/(current_number_rating+1)
+        position.update(number_rating=current_number_rating+1,rating = update_rating)
         comment.save()
         comment_add = CommentPostion.objects().with_id(comment.id)
         return comment_add.get_json(),200

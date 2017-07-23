@@ -10,6 +10,7 @@ class CommentPostion(Document):
     position=ReferenceField("Position")
     date=StringField()
     numberlike=IntField()
+    rating = IntField()
 
     def get_json(self):
         str=mlab.item2json(self)
@@ -20,7 +21,8 @@ class CommentPostion(Document):
             "message":self.message,
             "position":self.position.get_oid(),
             "date":self.date,
-            "numberlike":self.numberlike
+            "numberlike":self.numberlike,
+            "rating":self.rating
         }
 
     def get_json_noposition(self):
@@ -31,5 +33,6 @@ class CommentPostion(Document):
             "customer":self.customer.get_id(),
             "message":self.message,
             "date":self.date,
-            "numberlike":self.numberlike
+            "numberlike":self.numberlike,
+            "rating":self.rating
         }

@@ -60,11 +60,12 @@ class PositionRes(Resource):
         add_position = Position.objects().with_id(position.id)
         return mlab.item2json(add_position), 200
 
+
 class PositionRatingRes(Resource):
-    def get(self):
-        position = Position.objects()
-        print(123)
+    def get(self,id):
+        position = Position.objects().with_id(id)
         return position.get_rating(), 200
+
 
 class PositionNumberSeenUpdate(Resource):
     def put(self,id):

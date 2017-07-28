@@ -91,7 +91,7 @@ class PositionNumberLikeUpdate(Resource):
         else: number_like = current_number_like + 1
         position.update(number_like = number_like)
         update_position = Position.objects().with_id(position.id)
-        return mlab.item2json(update_position)
+        return update_position.get_numberlike(),200
 
 class PositionRating(Resource):
     def put(self,id):

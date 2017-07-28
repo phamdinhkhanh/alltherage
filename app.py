@@ -10,6 +10,7 @@ from res.order_res import *
 from res.gift_res import *
 from res.login import jwt_init,RegisterRes
 from res.position_res import *
+from res.commentposition_res import *
 import logging
 import sys
 
@@ -68,19 +69,20 @@ api.add_resource(PositionRes,"/api/position")
 #put a postion
 api.add_resource(APositionRes,"/api/position/<id>")
 #update number seen
-api.add_resource(PositionNumberSeenUpdate,"/api/posititon/numberseen/<id>")
+api.add_resource(PositionNumberSeenUpdate,"/api/position/numberseen/<id>")
 #update number like
-api.add_resource(PositionNumberLikeUpdate,"/api/posititon/numberlike/<id>")
+api.add_resource(PositionNumberLikeUpdate,"/api/position/numberlike/<id>")
 #position number rating
 api.add_resource(PositionRating,"/api/posititon/rating/<id>")
 #position rating value
-api.add_resource(PositionRatingRes,"/api/posititon/ratingvalue/<id>")
+api.add_resource(PositionRatingRes,"/api/position/ratingvalue/<id>")
 #comment into position
 api.add_resource(CommentPositionRes,"/api/position/comment/<id>")
 #comment update in position
 api.add_resource(CommentPositionUpdate,"/api/commentposition/<id>")
 #get a comment detail in position
 api.add_resource(CommentPositionIDRes,"/api/position/comment/<id1>/<id2>")
+
 
 @app.route('/')
 def hello():

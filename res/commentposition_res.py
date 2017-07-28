@@ -59,6 +59,14 @@ class CommentPositionRes(Resource):
         # l = mlab.list2json(comments)
         return l,200
 
+    def delete(self,id):
+        position = Position.objects().with_id(id)
+        comments = CommentPostion.objects(position=position)
+        l = [item.get_json() for item in comments]
+        for cm in comments:
+            cm.delete()
+        return {"message": "OK"}, 200
+
 
 class CommentPositionUpdate(Resource):
     def get(self,id):
@@ -102,3 +110,5 @@ class CommentPositionIDRes(Resource):
         comment.save()
         comment_add = CommentPostion.objects().with_id(id2)
         return mlab.item2json(comment_add),200
+
+

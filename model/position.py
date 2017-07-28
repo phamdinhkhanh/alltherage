@@ -55,3 +55,10 @@ class Position(Document):
         return {
             "rating": self.rating
         }
+
+    def get_numberlike(self):
+        str = mlab.item2json(self)
+        oid = str["_id"]["$oid"]
+        return {
+            "number_like": self.number_like
+        }

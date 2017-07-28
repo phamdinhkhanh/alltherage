@@ -48,3 +48,10 @@ class Position(Document):
         return {
             "oid":oid
         }
+
+    def get_rating(self):
+        str = mlab.item2json(self)
+        oid = str["_id"]["$oid"]
+        return {
+            "rating": self.rating
+        }

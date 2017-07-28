@@ -71,8 +71,10 @@ api.add_resource(APositionRes,"/api/position/<id>")
 api.add_resource(PositionNumberSeenUpdate,"/api/posititon/numberseen/<id>")
 #update number like
 api.add_resource(PositionNumberLikeUpdate,"/api/posititon/numberlike/<id>")
-#position rating seen
+#position number rating
 api.add_resource(PositionRating,"/api/posititon/rating/<id>")
+#position rating value
+api.add_resource(PositionRatingRes,"/api/posititon/ratingvalue/<id>")
 #comment into position
 api.add_resource(CommentPositionRes,"/api/position/comment/<id>")
 #comment update in position

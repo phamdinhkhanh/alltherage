@@ -11,8 +11,9 @@ class PositionRes(Resource):
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument(name="name", type=str, location="json")
-        parser.add_argument(name="url", type=str, location="json")
         parser.add_argument(name="website", type=str, location="json")
+        parser.add_argument(name="urlImage", type=str, location="json")
+        parser.add_argument(name="urlVideo", type=str, location="json")
         parser.add_argument(name="address", type=str, location="json")
         parser.add_argument(name="description", type=str, location="json")
         parser.add_argument(name="opentime", type=str, location="json")
@@ -27,7 +28,8 @@ class PositionRes(Resource):
 
         body = parser.parse_args()
         name = body.name
-        url = body.url
+        urlImage = body.urlImage
+        urlVideo = body.urlVideo
         website = body.website
         address = body.address
         description = body.description
@@ -50,7 +52,7 @@ class PositionRes(Resource):
         if found_position is not None:
               return {"message":"Position already exist"}, 401
         print(123)
-        position = Position(name=name, url=url, website=website, address = address,description = description,
+        position = Position(name=name, urlImage=urlImage,urlVideo=urlVideo, website=website, address = address,description = description,
                             opentime = opentime, phone = phone,latitude = latitude,longtitude = longtitude,
                             number_seen = number_seen, number_rating = number_rating,rating = rating,
                             customer = Customer.objects().with_id(user_id),code = code)
@@ -124,6 +126,7 @@ class APositionRes(Resource):
         return mlab.item2json(position), 200
 
     def delete(self,id):
+        print(123)
         position = Position.objects().with_id(id)
         position.delete()
         return {"message":"OK"},200
@@ -132,8 +135,9 @@ class APositionRes(Resource):
     def put(self,id):
         parser = reqparse.RequestParser()
         parser.add_argument(name="name", type=str, location="json")
-        parser.add_argument(name="url", type=str, location="json")
         parser.add_argument(name="website", type=str, location="json")
+        parser.add_argument(name="urlImage", type=str, location="json")
+        parser.add_argument(name="urlVideo", type=str, location="json")
         parser.add_argument(name="address", type=str, location="json")
         parser.add_argument(name="description", type=str, location="json")
         parser.add_argument(name="opentime", type=str, location="json")
@@ -141,15 +145,16 @@ class APositionRes(Resource):
         parser.add_argument(name="latitude", type=float, location="json")
         parser.add_argument(name="longtitude", type=float, location="json")
         parser.add_argument(name="number_seen", type=int, location="json")
+        parser.add_argument(name="number_like", type=int, location="json")
         parser.add_argument(name="code", type=str, location="json")
         parser.add_argument(name="rating", type=float, location="json")
         parser.add_argument(name="number_rating", type=int, location="json")
         parser.add_argument(name="user_id", type=str, location="json")
-
         body = parser.parse_args()
         name = body.name
-        url = body.url
         website = body.website
+        urlImage = body.urlImage
+        urlVideo = body.urlVideo
         address = body.address
         description = body.description
         opentime = body.opentime
@@ -157,6 +162,7 @@ class APositionRes(Resource):
         latitude = body.latitude
         longtitude = body.longtitude
         number_seen = body.number_seen
+        number_like = body.number_like
         rating = body.rating
         number_rating = body.number_rating
         user_id = body.user_id
@@ -168,15 +174,17 @@ class APositionRes(Resource):
         except:
             return {"message": "longtitude,latitude là số"}, 401
 
-        if name is None or address is None or longtitude is None or latitude is None\
+        if name is None or address is None or longtitude is None or latitude is None \
                 or code is None or user_id is None:
             return {"message": "Gửi cc thiếu trường đcm"}, 401
+        print(12)
 
         position = Position.objects().with_id(id)
-        position.update(name=name, url=url, website=website, address = address,description = description,
-                            opentime = opentime, phone = phone,latitude = latitude,longtitude = longtitude,
-                            number_seen = number_seen, rating = rating,number_rating = number_rating,
-                            customer = Customer.objects().with_id(user_id), code = code)
+        print(123)
+        position.update(name=name,urlImage=urlImage,urlVideo = urlVideo, website=website, address = address,description = description,
+                        opentime = opentime, phone = phone,latitude = latitude,longtitude = longtitude,
+                        number_seen = number_seen,number_like = number_like, rating = rating,number_rating = number_rating,
+                        customer = Customer.objects().with_id(user_id), code = code)
         update_position = Position.objects().with_id(id)
         return mlab.item2json(update_position),200
 

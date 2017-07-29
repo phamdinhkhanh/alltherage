@@ -5,7 +5,8 @@ from model.customer import *
 
 class Position(Document):
     name = StringField();
-    url = StringField();
+    urlImage = StringField();
+    urlVideo = StringField();
     website = StringField();
     address = StringField();
     description = StringField();
@@ -26,7 +27,8 @@ class Position(Document):
         return {
             "oid":oid,
             "name":self.name,
-            "url":self.url,
+            "urlImage":self.urlImage,
+            "urlVideo":self.urlVideo,
             "website":self.website,
             "address":self.address,
             "description":self.description,

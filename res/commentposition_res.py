@@ -33,7 +33,7 @@ class CommentPositionRes(Resource):
             comment.save()
             comment_add = CommentPostion.objects().with_id(comment.id)
             return comment_add.get_json(), 200
-        if rating > 5 or rating < 0:
+        if rating > 5 or rating < 1:
             return {"message":"Rating sai giá trị"}, 401
         position = Position.objects().with_id(id)
         if position is None:
